@@ -30,14 +30,22 @@ namespace FiskalnaKasaAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("FiscalNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
+                    b.Property<DateTime>("InvoiceDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("PaymentTimestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -47,7 +55,7 @@ namespace FiskalnaKasaAPI.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("FiskalnaKasaAPI.Models.InvoiceItem", b =>
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,34 +63,73 @@ namespace FiskalnaKasaAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("InvoiceId")
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.PatientService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("InvoiceId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ServiceId")
+                    b.Property<int>("PatientId")
                         .HasColumnType("integer");
+
+                    b.Property<int?>("PriceListId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("ServiceDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InvoiceId");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("PatientId");
 
-                    b.ToTable("InvoiceItems");
+                    b.HasIndex("PriceListId");
+
+                    b.ToTable("PatientServices");
                 });
 
-            modelBuilder.Entity("FiskalnaKasaAPI.Models.Service", b =>
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.PriceList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -92,7 +139,7 @@ namespace FiskalnaKasaAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.ToTable("PriceLists");
                 });
 
             modelBuilder.Entity("FiskalnaKasaAPI.Models.User", b =>
@@ -104,55 +151,69 @@ namespace FiskalnaKasaAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FiskalnaKasaAPI.Models.Invoice", b =>
                 {
                     b.HasOne("FiskalnaKasaAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Invoices")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FiskalnaKasaAPI.Models.InvoiceItem", b =>
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.PatientService", b =>
                 {
                     b.HasOne("FiskalnaKasaAPI.Models.Invoice", "Invoice")
-                        .WithMany("Items")
-                        .HasForeignKey("InvoiceId")
+                        .WithMany("PatientServices")
+                        .HasForeignKey("InvoiceId");
+
+                    b.HasOne("FiskalnaKasaAPI.Models.Patient", "Patient")
+                        .WithMany("PatientServices")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FiskalnaKasaAPI.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("FiskalnaKasaAPI.Models.PriceList", "PriceList")
+                        .WithMany("PatientServices")
+                        .HasForeignKey("PriceListId");
 
                     b.Navigation("Invoice");
 
-                    b.Navigation("Service");
+                    b.Navigation("Patient");
+
+                    b.Navigation("PriceList");
                 });
 
             modelBuilder.Entity("FiskalnaKasaAPI.Models.Invoice", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("PatientServices");
+                });
+
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.Patient", b =>
+                {
+                    b.Navigation("PatientServices");
+                });
+
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.PriceList", b =>
+                {
+                    b.Navigation("PatientServices");
+                });
+
+            modelBuilder.Entity("FiskalnaKasaAPI.Models.User", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }
