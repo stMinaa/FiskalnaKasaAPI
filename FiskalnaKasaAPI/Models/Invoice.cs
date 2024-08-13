@@ -1,17 +1,32 @@
-﻿namespace FiskalnaKasaAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FiskalnaKasaAPI.Models
 {
     public class Invoice
     {
+        [Key]
         public int Id { get; set; }
 
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
-        public string? FiscalNumber { get; set; }
-        public string? Status { get; set; }  // paid/nije paid
+        public string? ESIR { get; set; }
+        public int? PFR { get; set; }
+        public int? PFRTime { get; set; }
+        public string? BrojacRacuna { get; set; }
+        public List<PaymentType>? PaymentType { get; set; } // Tip plačanja
         public int? UserId { get; set; }
-        public DateTime? PaymentTimestamp { get; set; }
  
         public User? User { get; set; }
-        public ICollection<PatientService>? PatientServices { get; set; }
+        public ICollection<InvoiceItem>? PatientServices { get; set; }
+
+        
+    }
+
+    public enum PaymentType
+    {
+        Gotovina,
+        KreditnaKartica,
+        Cekovi,
+        Virman
     }
 }
