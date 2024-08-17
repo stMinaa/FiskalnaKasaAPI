@@ -8,3 +8,4 @@ C:\Users\milic\Desktop\Milica\projekti\fikalna-kasa\WindowsFormsApp1\obj\Debug\W
 C:\Users\milic\Desktop\Milica\projekti\fikalna-kasa\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\milic\Desktop\Milica\projekti\fikalna-kasa\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\milic\Desktop\Milica\projekti\fikalna-kasa\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\milic\Desktop\Milica\projekti\fikalna-kasa\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Payment.resources
