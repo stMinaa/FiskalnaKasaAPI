@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WindowsFormsApp1"
   ],
-  "SelectedNode": "\\FiskalnaKasaAPI.sln",
-  "PreviewInSolutionExplorer": false
+  "SelectedNode": "\\WindowsFormsApp1\\Form1.resx",
+  "PreviewInSolutionExplorer": true
 }
