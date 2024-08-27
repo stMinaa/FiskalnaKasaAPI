@@ -42,7 +42,6 @@ namespace WindowsFormsApp1
             this.label3 = new System.Windows.Forms.Label();
             this.payBtn = new System.Windows.Forms.Button();
             this.exchangeValue = new System.Windows.Forms.TextBox();
-            this.PaymentType = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -162,25 +161,11 @@ namespace WindowsFormsApp1
             this.exchangeValue.Size = new System.Drawing.Size(100, 22);
             this.exchangeValue.TabIndex = 17;
             // 
-            // PaymentType
-            // 
-            this.PaymentType.FormattingEnabled = true;
-            this.PaymentType.Items.AddRange(new object[] {
-            "Gotovina",
-            "Kartica",
-            "Uplatnica",
-            "Čekovi"});
-            this.PaymentType.Location = new System.Drawing.Point(16, 178);
-            this.PaymentType.Name = "PaymentType";
-            this.PaymentType.Size = new System.Drawing.Size(120, 72);
-            this.PaymentType.TabIndex = 18;
-            // 
             // Payment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 239);
-            this.Controls.Add(this.PaymentType);
             this.Controls.Add(this.exchangeValue);
             this.Controls.Add(this.payBtn);
             this.Controls.Add(this.label3);
@@ -216,6 +201,5 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button payBtn;
         private System.Windows.Forms.TextBox exchangeValue;
-        private System.Windows.Forms.CheckedListBox PaymentType;
     }
 }
