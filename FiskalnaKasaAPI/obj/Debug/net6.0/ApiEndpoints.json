@@ -1,0 +1,126 @@
+[
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.CustomerController",
+    "Method": "GetCustomers",
+    "RelativePath": "api/Customer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.DepartmentController",
+    "Method": "GetDepartments",
+    "RelativePath": "api/Department",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.InvoiceItemController",
+    "Method": "GetUninvoicedItemsByCustomer",
+    "RelativePath": "api/InvoiceItem/Customer/{customerId}/Uninvoiced",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[FiskalnaKasaAPI.Models.InvoiceItem, FiskalnaKasaAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.PriceListController",
+    "Method": "AddServiceToDepartment",
+    "RelativePath": "api/PriceList/{departmentId}/services",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "departmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newService",
+        "Type": "FiskalnaKasaAPI.Models.Service",
+        "IsRequired": true
+      },
+      {
+        "Name": "price",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "pdv",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.PriceListController",
+    "Method": "UpdatePriceList",
+    "RelativePath": "api/PriceList/api/PriceList/{id}/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedPriceList",
+        "Type": "FiskalnaKasaAPI.Models.PriceList",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.PriceListController",
+    "Method": "GetValidPriceLists",
+    "RelativePath": "api/PriceList/department/{departmentId}/valid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "departmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FiskalnaKasaAPI.Controllers.UserController",
+    "Method": "GetCashiers",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

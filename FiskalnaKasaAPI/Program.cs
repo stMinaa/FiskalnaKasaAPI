@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Register HttpClient
+builder.Services.AddHttpClient();
+
+
 // Add services to the container.
 builder.Services.AddScoped<FiscalizationService>();
 builder.Services.AddControllers();

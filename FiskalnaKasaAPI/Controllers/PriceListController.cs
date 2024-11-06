@@ -28,7 +28,8 @@ namespace FiskalnaKasaAPI.Controllers
             var validPrices = _context.PriceLists
                 .Where(pl => pl.DeparmentId == departmentId
                             && pl.DateStart <= currentDate
-                            && pl.DateEnd >= currentDate )
+                            && pl.DateEnd >= currentDate
+                            && pl.Service.IsActive==true )
                  .Select(pl => new
                  {
                      pl.Id,
@@ -46,7 +47,41 @@ namespace FiskalnaKasaAPI.Controllers
             return Ok(validPrices);
         }
 
+        //kad saljemo req, ne stavljamo iz active i id
         //2. napraviti novi Service po departmanu u priceList
+        [HttpPost("{departmentId}/services")]
+        public async Task<IActionResult> AddServiceToDepartment(int departmentId, [FromBody] Service newService, decimal price, int pdv)
+        {
+            // Check if the department exists
+            var department = await _context.Departments.FindAsync(departmentId);
+            if (department == null)
+            {
+                return NotFound("Department not found");
+            }
+
+            // Add the new service to the database and save changes to get a valid ServiceId
+            newService.IsActive = true;
+            _context.Services.Add(newService);
+            await _context.SaveChangesAsync();
+
+            // Create a new PriceList entry for the saved service with a valid ServiceId
+            var priceListEntry = new PriceList
+            {
+                DeparmentId = departmentId,
+                ServiceId = newService.Id, // This should now be valid
+                Price = price, // Default price; update as necessary
+                DateStart = DateOnly.FromDateTime(DateTime.Now),
+                PDVPercent = pdv,
+                PDVDateStart = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _context.PriceLists.Add(priceListEntry);
+
+            // Save the PriceList entry to the database
+            await _context.SaveChangesAsync();
+
+            return Ok(newService);
+        }
+
 
 
         // 3. Promeni cenu (Kreiranje nove instance sa novom cenom)

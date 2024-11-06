@@ -7,7 +7,7 @@ namespace FiskalnaKasaAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        public bool CustomerType { get; set; }
+        public bool CustomerType { get; set; } //false je obucno, true pravno lice
         public string? PIB { get; set; } // PIB za pravna lica
         public string? JMBG { get; set; } // JMBG za fizička lica
         public string? Name { get; set; }   //ime firme/ime coveka
